@@ -30,7 +30,7 @@ slots:
           - component: BlockCodeTemplate
             config:
               template: >
-                {{utility:things}}.getActions('pushover', {{input:ACCOUNT}}).sendMessage({{input:MESSAGE}}, "Blockly Pushover");
+                {{utility:things}}.getActions('pushover', {{input:ACCOUNT}}).sendMessage({{input:MESSAGE}}, "openHAB");
         toolbox:
           - component: PresetInput
             config:
