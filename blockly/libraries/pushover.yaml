@@ -1,0 +1,51 @@
+uid: blocklibrary_pushover
+tags: []
+props:
+  parameters: []
+  parameterGroups: []
+timestamp: Mar 8, 2022, 6:14:58 PM
+component: BlockLibrary
+config:
+  name: Pushover Block Library
+slots:
+  blocks:
+    - component: BlockType
+      config:
+        args0:
+          - name: MESSAGE
+            type: input_value
+          - name: ACCOUNT
+            type: input_value
+        colour: "#3993d1"
+        tooltip: ""
+        helpUrl: ""
+        inputsInline: true
+        lastDummyAlign0: right
+        message0: Send Message %1 to Pushover %2
+        nextStatement: ""
+        previousStatement: ""
+        type: push
+      slots:
+        code:
+          - component: BlockCodeTemplate
+            config:
+              template: >
+                {{utility:things}}.getActions('pushover', {{input:ACCOUNT}}).sendMessage({{input:MESSAGE}}, "Blockly Pushover");
+        toolbox:
+          - component: PresetInput
+            config:
+              fields:
+                TEXT: What's up?
+              name: MESSAGE
+              shadow: true
+              type: text
+          - component: PresetInput
+            config:
+              name: ACCOUNT
+              shadow: true
+              type: oh_thing
+  utilities:
+    - component: UtilityJavaType
+      config:
+        javaClass: org.openhab.core.model.script.actions.Things
+        name: things
