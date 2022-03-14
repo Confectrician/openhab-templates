@@ -3,7 +3,7 @@ tags: []
 props:
   parameters: []
   parameterGroups: []
-timestamp: Mar 8, 2022, 6:14:58 PM
+timestamp: Mar 8, 2022, 10:05:28 PM
 component: BlockLibrary
 config:
   name: Pushover Block Library
@@ -16,27 +16,146 @@ slots:
             type: input_value
           - name: ACCOUNT
             type: input_value
+          - name: TITLE
+            type: field_input
+            text: "openHAB"
         colour: "#3993d1"
         tooltip: ""
-        helpUrl: ""
+        helpUrl: "https://www.openhab.org/addons/bindings/pushover/#thing-actions"
         inputsInline: true
         lastDummyAlign0: right
-        message0: Send Message %1 to Pushover %2
+        message0: Send Message %1 to Pushover %2 with title %3
         nextStatement: ""
         previousStatement: ""
-        type: push
+        type: sendBasicMessage
       slots:
         code:
           - component: BlockCodeTemplate
             config:
               template: >
-                {{utility:things}}.getActions('pushover', {{input:ACCOUNT}}).sendMessage({{input:MESSAGE}}, "openHAB");
+                {{utility:things}}.getActions(
+                  'pushover', 
+                  {{input:ACCOUNT}}).sendMessage(
+                    {{input:MESSAGE}},
+                    '{{field:TITLE}}'
+                );
         toolbox:
           - component: PresetInput
             config:
               fields:
                 TEXT: What's up?
               name: MESSAGE
+              shadow: true
+              type: text
+          - component: PresetInput
+            config:
+              name: ACCOUNT
+              shadow: true
+              type: oh_thing
+    - component: BlockType
+      config:
+        args0:
+          - name: MESSAGE
+            type: input_value
+          - name: ACCOUNT
+            type: input_value
+          - name: TITLE
+            type: field_input
+            text: "openHAB"
+          - name: PRIO
+            type: field_dropdown
+            options:
+              - - "2"
+                - "2"
+              - - "1"
+                - "1"
+              - - "0"
+                - "0"
+              - - "-1"
+                - "-1"
+              - - "-2"
+                - "-2"
+        colour: "#3993d1"
+        tooltip: ""
+        helpUrl: "https://www.openhab.org/addons/bindings/pushover/#thing-actions"
+        inputsInline: false
+        lastDummyAlign0: right
+        message0: Send priority Message %1 to Pushover %2 with title %3 and Priority %4
+        nextStatement: ""
+        previousStatement: ""
+        type: sendPriorityMessage
+      slots:
+        code:
+          - component: BlockCodeTemplate
+            config:
+              template: >
+                {{utility:things}}.getActions(
+                  'pushover', 
+                  {{input:ACCOUNT}}).sendPriorityMessage(
+                  {{input:MESSAGE}},
+                  '{{field:TITLE}}',
+                  {{field:PRIO}}
+                );
+        toolbox:
+          - component: PresetInput
+            config:
+              fields:
+                TEXT: What's up?
+              name: MESSAGE
+              shadow: true
+              type: text
+          - component: PresetInput
+            config:
+              name: ACCOUNT
+              shadow: true
+              type: oh_thing
+    - component: BlockType
+      config:
+        args0:
+          - name: MESSAGE
+            type: input_value
+          - name: TITLE
+            type: field_input
+            text: "openHAB"
+          - name: URL
+            type: input_value 
+          - name: ACCOUNT
+            type: input_value
+        colour: "#3993d1"
+        tooltip: ""
+        helpUrl: "https://www.openhab.org/addons/bindings/pushover/#thing-actions"
+        inputsInline: false
+        lastDummyAlign0: right
+        message0: Send Message %1 with title %2 and url %3 to Pushover %4
+        nextStatement: ""
+        previousStatement: ""
+        type: sendUrlMessage
+      slots:
+        code:
+          - component: BlockCodeTemplate
+            config:
+              template: >
+                {{utility:things}}.getActions(
+                  'pushover', 
+                  {{input:ACCOUNT}}).sendURLMessage(
+                  {{input:MESSAGE}},
+                  '{{field:TITLE}}',
+                  {{input:URL}},
+                  null
+                );
+        toolbox:
+          - component: PresetInput
+            config:
+              fields:
+                TEXT: What's up?
+              name: MESSAGE
+              shadow: true
+              type: text
+          - component: PresetInput
+            config:
+              fields:
+                TEXT: "https://www.openhab.org/"
+              name: URL
               shadow: true
               type: text
           - component: PresetInput
